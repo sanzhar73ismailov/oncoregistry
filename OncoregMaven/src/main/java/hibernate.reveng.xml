@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="oncoregistry"/>
+  <table-filter match-name="localization"/>
+  <table-filter match-name="region_type"/>
+  <table-filter match-name="morbiditysimple2100"/>
+  <table-filter match-name="region"/>
+  <table-filter match-name="morbidityolap"/>
+  <table-filter match-name="age"/>
+  <table-filter match-name="sex"/>
+  <table-filter match-name="morbiditysimple"/>
+  <table-filter match-name="population"/>
+</hibernate-reverse-engineering>

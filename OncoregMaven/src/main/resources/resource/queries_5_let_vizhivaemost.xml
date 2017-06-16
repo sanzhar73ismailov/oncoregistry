@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report>
+    <table number="1">
+        <name>Таблица №1 Удельный вес числа больных злокачественными новообразованиями, состоящих на учете 5 и более лет с момента установления диагноза, в Республике Казахстан, за период 2004-2013 года</name>
+        <rowname>Наименование областей</rowname>
+        <base></base>
+        <query>
+            select r.name as row_name, m.year as col_name, round(m.`registeredInTheEndOfYear5YearsAndMore` / m.`registeredInTheEndOfYearAll` * 100, 2) as sootnoshenie
+            from `morbiditysimple2100`  m
+            inner join region r ON m.region_id=r.id
+            where 1=1
+            and m.localization_id=1
+            group by m.region_id, m.year
+            order by r.order, m.year
+        </query>
+    </table>
+    <table number="2">
+        <name>Таблица №2 Удельный вес числа больных злокачественными новообразованиями, состоящих на учете 5 и более лет с момента установления диагноза, в Республике Казахстан, с учетом локализации, за период 2004-2013 года</name>
+        <rowname>Локализация</rowname>
+        <base></base>
+        <query>
+            select CONCAT(l.order,l.name) as row_name, m.year as col_name, round(m.`registeredInTheEndOfYear5YearsAndMore` / m.`registeredInTheEndOfYearAll` * 100, 2) as sootnoshenie
+            from `morbiditysimple2100` m
+            inner join localization l ON m.localization_id=l.id
+            where 1=1
+            and m.region_id=17
+            group by m.localization_id, m.year
+            order by l.order, m.year
+        </query>
+    </table>
+</report>

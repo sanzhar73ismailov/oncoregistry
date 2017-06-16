@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report>
+    <table number="1">
+        <name>Таблица №1 Показатель годичной летальности от злокачественных новообразований в Республике Казахстан, за период 2004-2013 года</name>
+        <rowname>Наименование областей</rowname>
+        <base></base>
+        <query>
+            select r.name as row_name, m.year as col_name, round(m.`value` / mor.`vzyatoNaUchetThisYear_FirstTime` * 100, 2) as sootnoshenie
+            from `morbiditysimple2200`  m
+            -- left join population ps ON m.region_id=ps.region_id and m.year=ps.year and m.age_id=ps.age_id and  m.sex_id=ps.sex_id
+            inner join morbiditysimple2100 mor ON m.region_id=mor.region_id and m.year=(mor.year+1)
+            inner join region r ON m.region_id=r.id
+            where 1=1
+            and m.localization_id=1
+            group by m.region_id, m.year
+            order by r.order, m.year
+        </query>
+    </table>
+    <table number="2">
+        <name>Таблица №2 Показатель годичной летальности от злокачественных новообразований в Республике Казахстан, с учетом стадии заболевания, за период 2004-2013 года</name>
+        <rowname>Возраст</rowname>
+        <base></base>
+        <query>
+            <!-- Нет данных по стадиям в форме 2200 -->
+        </query>
+    </table>
+    <table number="3">
+        <name>Таблица №3 Показатель годичной летальности от злокачественных новообразований в Республике Казахстан, с учетом локализации, за период 2004-2013 года</name>
+        <rowname>Локализация</rowname>
+        <base></base>
+        <query>
+            select l.name as row_name, m.year as col_name, round(m.value / mor.vzyatoNaUchetThisYear_FirstTime * 100, 2) as sootnoshenie
+            from `morbiditysimple2200` m
+            inner join  morbiditysimple2100 mor ON m.region_id=mor.region_id and m.year=(mor.year+1)
+            and  m.localization_id=mor.localization_id
+            inner join localization l ON m.localization_id=l.id
+            where 1=1
+            and m.region_id=17
+            group by m.localization_id, m.year
+            order by l.order, m.year
+        </query>
+    </table>
+</report>

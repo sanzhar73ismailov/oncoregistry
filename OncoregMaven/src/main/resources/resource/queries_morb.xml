@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report>
+    <table number="1">
+        <name>Заболеваемость злокачественными новообразованиями в Республике Казахстан, за период 2004-2013 года (на 100 000 населения)</name>
+        <rowname>Наименование областей</rowname>
+        <base>100000</base>
+        <query>
+            select r.name as row_name, m.year as col_name, m.morbidity as morbidity_abs ,ps.value as population from morbidityolap m
+            left join population ps ON m.region_id=ps.region_id and m.year=ps.year and m.age_id=ps.age_id and  m.sex_id=ps.sex_id
+            inner join region r ON m.region_id=r.id
+            where 1=1
+            and m.localization_id=1
+            and m.sex_id=3
+            and m.age_id=10 
+            group by m.region_id, m.year
+            order by r.order, m.year
+        </query>
+    </table>
+    <table number="2">
+        <name>Заболеваемость злокачественными новообразованиями в Республике Казахстан, с учетом возраста, за период 2004-2013 года (на 100 000 населения)</name>
+        <rowname>Возраст</rowname>
+        <base>100000</base>
+        <query>
+            select age.name as row_name, m.year as col_name, m.morbidity as morbidity_abs, ps.value as population
+            from morbidityolap m 
+            left join  population ps ON m.region_id=ps.region_id and m.year=ps.year and m.age_id=ps.age_id and  m.sex_id=ps.sex_id
+            inner join age age ON m.age_id=age.id
+            where 1=1
+            and m.region_id=17
+            and m.sex_id=3
+            and m.localization_id=1
+            and (age.name = 'все возрасты'
+            or age.name = '0-4'
+            or age.name = '5-9'
+            or  age.name ='10-14'
+            or  age.name ='15-19'
+            or  age.name ='20-24'
+            or  age.name ='25-29'
+            or  age.name ='30-34'
+            or  age.name ='35-39'
+            or age.name  ='40-44'
+            or age.name  ='45-49'
+            or age.name  ='50-54'
+            or age.name  ='55-59'
+            or age.name  ='60-64'
+            or age.name  ='65-69'
+            or  age.name ='70 +')
+            group by m.age_id, m.year
+            order by age.order, m.year
+        </query>
+    </table>
+    <table number="3">
+        <name>Заболеваемость злокачественными новообразованиями в Республике Казахстан, с учетом пола, за период 2004-2013 года (на 100 000 населения)</name>
+        <rowname>Пол</rowname>
+        <base>100000</base>
+        <query>
+            select s.name as row_name, m.year as col_name, m.morbidity as morbidity_abs , ps.value as population from morbidityolap m
+            left join population ps ON m.region_id=ps.region_id and m.year=ps.year and m.age_id=ps.age_id and  m.sex_id=ps.sex_id
+            inner join sex s ON m.sex_id=s.id
+            where 1=1
+            and m.localization_id=1
+            and m.age_id=10 
+            and m.region_id=17
+            group by m.sex_id, m.year
+            order by m.sex_id, m.year
+        </query>
+    </table>
+    <table number="4">
+        <name>Заболеваемость злокачественными новообразованиями в Республике Казахстан, с учетом стадии заболевания, за период 2004-2013 года (на 100 000 населения)</name>
+        <rowname>Стадия заболевания</rowname>
+        <base>100</base>
+        <query>
+            select s.name as row_name, m.year as col_name, m.value as morbidity_abs, ms.vzyatoNaUchetThisYear_FirstTime as population
+            from morbidityolap2100 m
+            inner join morbiditysimple2100 ms on m.localization_id=ms.localization_id 
+            and m.region_id=ms.region_id
+            and m.year=ms.year
+            inner join stage s on m.stage_id=s.id
+            where 1=1 
+            and m.region_id=17 
+            and m.localization_id=1
+            and ms.younger14Years=0
+            group by m.stage_id, m.year
+            order by  m.stage_id,  m.year
+        </query>
+    </table>
+    <table number="5">
+        <name>Заболеваемость злокачественными новообразованиями в Республике Казахстан, с учетом локализации, за период 2004-2013 года  (на 100 000 населения)</name>
+        <rowname>Локализация</rowname>
+        <base>100000</base>
+        <query>
+            select l.name as row_name, m.year as col_name, m.morbidity as morbidity_abs ,ps.value as population 
+            from morbidityolap m
+            left join population ps ON m.region_id=ps.region_id and m.year=ps.year and m.age_id=ps.age_id and  m.sex_id=ps.sex_id
+            inner join localization l ON m.localization_id=l.id
+            where 1=1
+            and m.region_id=17
+            and if(
+            m.localization_id in (select id from localization where sex_spec=1), m.sex_id=1, 
+            if(m.localization_id in (select id from localization where sex_spec=2), m.sex_id=2, m.sex_id=3)
+            )
+            and m.age_id=10 
+            and m.localization_id in (select id from localization where select_for_report=1)
+            group by m.localization_id, m.year
+            order by l.order, m.year
+        </query>
+    </table>
+    <table number="6">
+        <name>Заболеваемость злокачественными новообразованиями в областях Республики Казахстан, с учетом возраста, за %s год (на 100 000 населения)</name>
+        <rowname>Наименования областей</rowname>
+        <base>100000</base>
+        <query>
+            select r.name as row_name, a.name as col_name, m.morbidity as morbidity_abs , ps.value as population from morbidityolap m
+            left join population ps ON m.region_id=ps.region_id and m.year=ps.year and m.age_id=ps.age_id and  m.sex_id=ps.sex_id
+            inner join region r ON m.region_id=r.id
+            inner join age a ON m.age_id=a.id
+            where 1=1
+            and m.localization_id=1
+            and m.sex_id=3
+            and m.year=%s
+            and m.age_id not in(50, 60, 70, 80, 90, 190, 200, 210, 230)
+            group by m.region_id, m.age_id
+            order by r.order, m.age_id
+        </query>
+    </table>
+    <table number="7">
+        <name>Заболеваемость злокачественными новообразованиями в областях Республики Казахстан, с учетом пола, за %s год (на 100 000 населения)</name>
+        <rowname>Наименования областей</rowname>
+        <base>100000</base>
+        <query>
+            select r.name as row_name, s.name as col_name, m.morbidity as morbidity_abs , ps.value as population from morbidityolap m
+            left join population ps ON m.region_id=ps.region_id and m.year=ps.year and m.age_id=ps.age_id and  m.sex_id=ps.sex_id
+            inner join region r ON m.region_id=r.id
+            inner join sex s ON m.sex_id=s.id
+            where 1=1
+            and m.localization_id=1
+            and m.age_id=10
+            and m.year=%s 
+            group by m.region_id, m.sex_id
+            order by r.order, s.order
+        </query>
+    </table>
+    <table number="8">
+        <name>Заболеваемость злокачественными новообразованиями в областях Республики Казахстан, с учетом стадии заболевания, за %s год (на 100 000 населения)</name>
+        <rowname>Наименования областей</rowname>
+        <base>100</base>
+        <query>
+            select r.name as row_name, s.name as col_name, m.value as morbidity_abs, ms.vzyatoNaUchetThisYear_FirstTime as population
+            from morbidityolap2100 m
+            inner join morbiditysimple2100 ms on m.localization_id=ms.localization_id
+            and m.region_id=ms.region_id
+            and m.year=ms.year
+            inner join region r ON m.region_id=r.id
+            inner join stage s ON m.stage_id=s.id
+            where 1=1
+            and m.localization_id=1
+            and m.year=%s
+            group by m.region_id, m.stage_id
+            order by r.order, s.order
+        </query>
+    </table>
+    <table number="9">
+        <name>Заболеваемость злокачественными новообразованиями в областях Республики Казахстан, с учетом локализации, за %s год (на 100 000 населения)</name>
+        <rowname>Наименования областей</rowname>
+        <base>100000</base>
+        <query>
+            select r.name as row_name, l.name as col_name, m.morbidity as morbidity_abs , 
+            if (
+            m.localization_id in (select id from localization where sex_spec=0), 
+            ps.value_all_sex_both, 
+            if (m.localization_id in (select id from localization where sex_spec=1), ps.value_all_sex_male, ps.value_all_sex_female)
+            )  as population from morbidityolap m
+            left join populationsimple ps ON m.region_id=ps.region_id and m.year=ps.year and m.age_id=ps.age_id
+            inner join region r ON m.region_id=r.id
+            inner join localization l ON m.localization_id=l.id
+            where 1=1
+            and m.age_id=10
+            and m.year=%s
+            and m.localization_id in (select id from localization where select_for_report=1)
+            group by m.region_id, m.localization_id
+            order by r.order, m.localization_id
+        </query>
+    </table>
+    <table number="10">
+        <name>Заболеваемость злокачественными новообразованиями в Республике Казахстан, с учетом возраста и локализации, за %s год (на 100 000 населения)</name>
+        <rowname>Локализация</rowname>
+        <base>100000</base>
+        <query>
+            select l.name as row_name, a.name as col_name, m.morbidity as morbidity_abs, ps.value as population from morbidityolap m
+            left join population ps 
+            on m.year=ps.year 
+            and m.age_id=ps.age_id 
+            and m.region_id=ps.region_id 
+            and m.sex_id=ps.sex_id
+            inner join localization l on m.localization_id=l.id
+            inner join age a on m.age_id=a.id
+            where 1=1
+            and m.year =%s
+            and m.region_id = 17
+            and if(
+            m.localization_id in (select id from localization where sex_spec=1), m.sex_id=1, 
+            if(m.localization_id in (select id from localization where sex_spec=2), m.sex_id=2, m.sex_id=3)
+            )
+            and m.localization_id in (select id from localization where select_for_report=1)
+            and m.age_id not in (50,60,70,80,90,190,200,210,230)
+            order by l.order, m.age_id
+        </query>
+    </table>
+    <table number="11">
+        <name>Заболеваемость злокачественными новообразованиями в Республики Казахстан, с учетом пола и локализации, за %s год (на 100 000 населения)</name>
+        <rowname>Локализация</rowname>
+        <base>100000</base>
+        <query>
+            select l.name as row_name, s.name as col_name, m.morbidity as morbidity_abs, ps.value as population 
+            from morbidityolap m
+            left join population ps 
+            on m.year=ps.year 
+            and m.age_id=ps.age_id 
+            and m.region_id=ps.region_id 
+            and m.sex_id=ps.sex_id
+            inner join localization l on m.localization_id=l.id
+            right join sex s on m.sex_id=s.id
+            where 1=1
+            and m.year=%s
+            and m.region_id = 17
+            and m.age_id=10
+            and m.localization_id in (select loc.id from localization loc where loc.select_for_report=1)
+            order by l.order, s.order
+        </query>
+    </table>
+    <table number="12">
+        <name>Заболеваемость злокачественными новообразованиями в Республики Казахстан, с учетом стадии заболевания и локализации, за %s год (на 100 000 населения)</name>
+        <rowname>Локализация</rowname>
+        <base>100</base>
+        <query>
+            select  l.name as row_name, st.name as col_name, m.value as morbidity_abs,  ms.vzyatoNaUchetThisYear_FirstTime as population
+            from morbidityolap2100 m
+            inner join morbiditysimple2100 ms on m.localization_id=ms.localization_id
+            and m.region_id=ms.region_id
+            and m.year=ms.year
+            inner join stage st on m.stage_id=st.id
+            inner join localization l on m.localization_id=l.id
+            where 1=1
+            and m.region_id=17
+            and m.year=%s
+            and m.localization_id in (select loc.id from localization loc where loc.select_for_report=1 and loc.id != 50)
+            and ms.younger14Years=0
+             order by l.order, st.order
+        </query>
+    </table>
+</report>

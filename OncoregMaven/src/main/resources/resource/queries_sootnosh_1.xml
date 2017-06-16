@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report>
+    <table number="1">
+        <name>Запрос для добавления в таблицу population строки для возраста "15-29" начиная с 2005 года (для 2004 года уже были данные)</name>
+        <rowname></rowname>
+        <base></base>
+        <query>
+            select p.`year`, p.`region_id`, p.`sex_id`, 100, SUM(VALUE) from population p 
+            where 1=1 and
+            p.`year` > 2004 and
+            p.`age_id` in (70,80,90)
+            group by p.`year`, p.`region_id`, p.`sex_id`;
+        </query>
+    </table>
+    <table number="2">
+        <name>Запрос для добавления в таблицу populationsimple строки для возраста "15-29" начиная с 2005 года (для 2004 года уже были данные)</name>
+        <rowname>Возраст</rowname>
+        <base></base>
+        <query>
+            INSERT INTO 
+            `populationsimple`
+            (
+            `year`,
+            `region_id`,
+            `age_id`,
+            `value_all_sex_both`,
+            `value_all_sex_male`,
+            `value_all_sex_female`,
+            `value_city_sex_both`,
+            `value_city_sex_male`,
+            `value_city_sex_female`,
+            `value_village_sex_both`,
+            `value_village_sex_male`,
+            `value_village_sex_female`
+            ) 
+            select p.`year`, p.`region_id`, 100, 
+            SUM(value_all_sex_both),
+            SUM(value_all_sex_male),
+            SUM(value_all_sex_female),
+            SUM(value_city_sex_both),
+            SUM(value_city_sex_male),
+            SUM(value_city_sex_female),
+            SUM(value_village_sex_both),
+            SUM(value_village_sex_male),
+            SUM(value_village_sex_female)
+            from `populationsimple` p 
+            where 1=1 and
+            p.`year` > 2004 and
+            p.`age_id` in (70,80,90)
+            group by p.`year`, p.`region_id`
+        </query>
+    </table>
+    
+</report>
