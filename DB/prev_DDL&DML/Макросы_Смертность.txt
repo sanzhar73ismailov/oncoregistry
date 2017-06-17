@@ -1,0 +1,358 @@
+Option Explicit
+
+Sub Ìàêðîñ3()
+'
+' Ìàêðîñ3 Ìàêðîñ
+'
+    Columns("B:B").Select
+'
+    Range("A1:AI113").Select
+    Selection.UnMerge
+    ActiveWindow.SmallScroll Down:=-108
+    Rows("1:4").Select
+    Range("A4").Activate
+    Selection.Delete Shift:=xlUp
+    Rows("2:2").Select
+    Selection.Insert Shift:=xlDown, CopyOrigin:=xlFormatFromLeftOrAbove
+    Range("A3").Select
+    Selection.Copy
+    Range("C1").Select
+    ActiveSheet.Paste
+    Columns("B:B").Select
+    Application.CutCopyMode = False
+    Selection.Delete Shift:=xlToLeft
+    Columns("AG:AH").Select
+    Selection.Delete Shift:=xlToLeft
+    Rows("20:20").Select
+    Selection.Delete Shift:=xlUp
+    ActiveWindow.SmallScroll Down:=18
+    Rows("37:37").Select
+    Selection.Delete Shift:=xlUp
+    ActiveWindow.SmallScroll Down:=15
+    Rows("54:54").Select
+    Selection.Delete Shift:=xlUp
+    ActiveWindow.SmallScroll Down:=-60
+    Windows("Øàïêà-ñðàâíåíèå.xlsx").Activate
+    Range("A1:AE2").Select
+    Selection.Copy
+    Windows("2008.xls").Activate
+    Range("B1").Select
+    ActiveSheet.Paste
+    Rows("2:2").RowHeight = 47.25
+    ActiveWindow.SmallScroll Down:=-12
+End Sub
+
+
+
+Sub Ìàêðîñ4()
+'
+' Ìàêðîñ4 Ìàêðîñ
+'
+Dim I As Integer
+
+For I = 18 To 18
+
+   Sheets(I).Select
+
+    Rows("1:1").RowHeight = 56.25
+    Cells(4, 2).Select
+    ActiveCell.FormulaR1C1 = "=SUM(RC[1]:RC[30])"
+    Selection.AutoFill Destination:=Range("B4:B53"), Type:=xlFillDefault
+    Range("B4:B53").Select
+    Range("B37").Select
+    Selection.ClearContents
+    ActiveWindow.SmallScroll Down:=-21
+    Range("B20").Select
+    Selection.ClearContents
+    ActiveWindow.SmallScroll Down:=-18
+Next I
+End Sub
+
+Sub SetSum()
+'
+' SetSum Ìàêðîñ
+'
+   Dim I As Integer
+   For I = 1 To 17
+
+   Sheets(I).Select
+   Rows("1:1").RowHeight = 56.25
+    Range("B4").Select
+    ActiveCell.FormulaR1C1 = "=R[17]C+R[34]C"
+    Range("B5").Select
+    ActiveWindow.SmallScroll Down:=-6
+    Range("B4").Select
+    Selection.AutoFill Destination:=Range("B4:AF4"), Type:=xlFillDefault
+    Range("B4:AF4").Select
+    Selection.AutoFill Destination:=Range("B4:AF19"), Type:=xlFillDefault
+    Range("B4:AF19").Select
+    
+    Next I
+End Sub
+
+'''''''''''
+Sub Macros2009()
+   Dim I As Integer
+   For I = 3 To 17
+   
+   Sheets(I).Select
+   
+   
+    If 1 = 1 Then
+    Range("A1:AJ114").Select
+    ActiveWindow.SmallScroll Down:=-21
+    Selection.UnMerge
+    Rows("1:4").Select
+    Range("A4").Activate
+    Selection.Delete Shift:=xlUp
+    'ActiveWindow.SmallScroll Down:=-9
+    Columns("B:B").Select
+    Selection.Delete Shift:=xlToLeft
+    Columns("AH:AI").Select
+    Selection.Delete Shift:=xlToLeft
+    'ActiveWindow.SmallScroll Down:=0
+    Rows("1:1").RowHeight = 28.5
+    Rows("2:2").RowHeight = 21
+    Range("AH4").Select
+    ActiveCell.FormulaR1C1 = "=RC[-18]+RC[-3]"
+    Range("AH4").Select
+    Selection.AutoFill Destination:=Range("AH4:AH58"), Type:=xlFillDefault
+    Range("AH4:AH55").Select
+    'ActiveWindow.SmallScroll Down:=-30
+    Range("AH21:AH22").Select
+    Selection.ClearContents
+    'ActiveWindow.SmallScroll Down:=12
+    Range("AH40:AH41").Select
+    Selection.ClearContents
+    'ActiveWindow.SmallScroll Down:=-18
+    Range("AH4:AH58").Select
+    Selection.Copy
+    'ActiveWindow.SmallScroll Down:=-36
+    Range("AE4").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Columns("AH:AH").Select
+    Application.CutCopyMode = False
+    Selection.ClearContents
+    Columns("P:P").Select
+    Selection.Delete Shift:=xlToLeft
+    Range("C3").Select
+    ActiveWindow.SmallScroll Down:=0
+    End If
+    
+    Rows("21:21").Select
+    Selection.Delete Shift:=xlUp
+    Rows("39:39").Select
+    Selection.Delete Shift:=xlUp
+    
+    Range("C21").Select
+    'ActiveWindow.SmallScroll Down:=9
+    ActiveCell.FormulaR1C1 = "=R[1]C-R[17]C"
+    Range("C21").Select
+    Selection.AutoFill Destination:=Range("C21:AF21"), Type:=xlFillDefault
+    Range("C21:AF21").Select
+    Selection.Copy
+    Range("C22").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Application.CutCopyMode = False
+    Range("C21").Select
+    Selection.Copy
+    Range("C39").Select
+    ActiveSheet.Paste
+    'ActiveWindow.SmallScroll Down:=18
+    Application.CutCopyMode = False
+    Selection.AutoFill Destination:=Range("C39:AF39"), Type:=xlFillDefault
+    Range("C39:AF39").Select
+    Selection.Copy
+    Range("C40").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    ActiveWindow.SmallScroll Down:=-9
+    Range("C21:AF21").Select
+    Application.CutCopyMode = False
+    Selection.ClearContents
+    Range("C39:AF39").Select
+    Selection.ClearContents
+    ActiveWindow.SmallScroll Down:=-24
+    Range("B4:AF19").Select
+    Selection.ClearContents
+    Rows("20:20").Select
+    Selection.Delete Shift:=xlUp
+    ActiveWindow.SmallScroll Down:=15
+    Rows("37:37").Select
+    Selection.Delete Shift:=xlUp
+    ActiveWindow.SmallScroll Down:=12
+    Rows("54:54").Select
+    Selection.Delete Shift:=xlUp
+    'ActiveWindow.SmallScroll Down:=-36
+    Range("B4").Select
+    ActiveWindow.SmallScroll Down:=12
+    Range("B21").Select
+    ActiveCell.FormulaR1C1 = "=SUM(RC[1]:RC[30])"
+    Selection.AutoFill Destination:=Range("B21:B53"), Type:=xlFillDefault
+    Range("B21:B53").Select
+    Range("B37").Select
+    Selection.ClearContents
+    ActiveWindow.SmallScroll Down:=-27
+    Range("B4").Select
+    ActiveCell.FormulaR1C1 = "=R[17]C+R[34]C"
+    'Range("B5").Select
+    'ActiveWindow.SmallScroll Down:=-3
+    'Range("B4").Select
+    Selection.AutoFill Destination:=Range("B4:AF4"), Type:=xlFillDefault
+    Range("B4:AF4").Select
+    Selection.AutoFill Destination:=Range("B4:AF19"), Type:=xlFillDefault
+    Range("B4:AF19").Select
+    'Application.WindowState = xlMinimized
+    'Windows("Øàïêà-ñðàâíåíèå.xlsx").Activate
+    'Application.WindowState = xlMinimized
+    'Windows("2009.xls").Activate
+    Range("A4").Select
+    ActiveCell.FormulaR1C1 = "âñå âîçð."
+    'Range("A4").Select
+    'ActiveCell.FormulaR1C1 = "âñå âîçð."
+    Range("A21").Select
+    ActiveCell.FormulaR1C1 = "âñå âîçð."
+   ' ActiveWindow.SmallScroll Down:=12
+    Range("A38").Select
+    ActiveCell.FormulaR1C1 = "âñå âîçð."
+    'ActiveWindow.SmallScroll Down:=-27
+    'Range("J3").Select
+    'Selection.ClearContents
+    Windows("Øàïêà-ñðàâíåíèå.xlsx").Activate
+    Selection.Copy
+    Windows("2009.xls").Activate
+    Range("B1").Select
+    ActiveSheet.Paste
+    'ActiveWindow.SmallScroll Down:=-6
+    Next I
+End Sub
+
+
+Public Sub Macros2010()
+Dim I As Integer
+   For I = 3 To 17
+   
+   Sheets(I).Select
+   
+   
+    If 1 = 1 Then
+    Range("A1:AJ114").Select
+   
+    Selection.UnMerge
+    Rows("1:4").Select
+    Range("A4").Activate
+    Selection.Delete Shift:=xlUp
+  
+    Columns("B:B").Select
+    Selection.Delete Shift:=xlToLeft
+    Columns("AH:AI").Select
+    Selection.Delete Shift:=xlToLeft
+   
+    Rows("1:1").RowHeight = 28.5
+    Rows("2:2").RowHeight = 21
+    Range("AH4").Select
+    ActiveCell.FormulaR1C1 = "=RC[-18]+RC[-3]"
+    Range("AH4").Select
+    Selection.AutoFill Destination:=Range("AH4:AH58"), Type:=xlFillDefault
+    'Range("AH4:AH55").Select
+    
+    Range("AH21:AH22").Select
+    Selection.ClearContents
+  
+    Range("AH40:AH41").Select
+    Selection.ClearContents
+    
+    Range("AH4:AH58").Select
+    Selection.Copy
+   
+    Range("AE4").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Columns("AH:AH").Select
+    Application.CutCopyMode = False
+    Selection.ClearContents
+    Columns("P:P").Select
+    Selection.Delete Shift:=xlToLeft
+    'Range("C3").Select
+    'ActiveWindow.SmallScroll Down:=0
+    End If
+    
+    Rows("21:21").Select
+    Selection.Delete Shift:=xlUp
+    Rows("39:39").Select
+    Selection.Delete Shift:=xlUp
+    
+    Range("C21").Select
+    
+    ActiveCell.FormulaR1C1 = "=R[1]C-R[17]C"
+    Range("C21").Select
+    Selection.AutoFill Destination:=Range("C21:AF21"), Type:=xlFillDefault
+    Range("C21:AF21").Select
+    Selection.Copy
+    Range("C22").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Application.CutCopyMode = False
+    Range("C21").Select
+    Selection.Copy
+    Range("C39").Select
+    ActiveSheet.Paste
+    
+    Application.CutCopyMode = False
+    Selection.AutoFill Destination:=Range("C39:AF39"), Type:=xlFillDefault
+    Range("C39:AF39").Select
+    Selection.Copy
+    Range("C40").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+  
+    Range("C21:AF21").Select
+    Application.CutCopyMode = False
+    Selection.ClearContents
+    Range("C39:AF39").Select
+    Selection.ClearContents
+   
+    Range("B4:AF19").Select
+    Selection.ClearContents
+    Rows("20:20").Select
+    Selection.Delete Shift:=xlUp
+    
+    Rows("37:37").Select
+    Selection.Delete Shift:=xlUp
+   
+    Rows("54:54").Select
+    Selection.Delete Shift:=xlUp
+   
+    Range("B4").Select
+   
+    Range("B21").Select
+    ActiveCell.FormulaR1C1 = "=SUM(RC[1]:RC[30])"
+    Selection.AutoFill Destination:=Range("B21:B53"), Type:=xlFillDefault
+    Range("B21:B53").Select
+    Range("B37").Select
+    Selection.ClearContents
+  
+    Range("B4").Select
+    ActiveCell.FormulaR1C1 = "=R[17]C+R[34]C"
+    Selection.AutoFill Destination:=Range("B4:AF4"), Type:=xlFillDefault
+    Range("B4:AF4").Select
+    Selection.AutoFill Destination:=Range("B4:AF19"), Type:=xlFillDefault
+    Range("B4:AF19").Select
+    Range("A4").Select
+    ActiveCell.FormulaR1C1 = "âñå âîçð."
+ 
+    Range("A21").Select
+    ActiveCell.FormulaR1C1 = "âñå âîçð."
+  
+    Range("A38").Select
+    ActiveCell.FormulaR1C1 = "âñå âîçð."
+    Windows("Øàïêà-ñðàâíåíèå.xlsx").Activate
+    Selection.Copy
+    Windows("2010.xls").Activate
+    Range("B1").Select
+    ActiveSheet.Paste
+   
+    Next I
+End Sub

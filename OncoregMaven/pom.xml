@@ -6,7 +6,7 @@
 	
 	<groupId>kz.kazniioir.oncoregistry</groupId>
 	<artifactId>stat-forms</artifactId>
-	<version>.1.0-SNAPSHOT</version>
+	<version>17.06.17.01</version>
 
 	 <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

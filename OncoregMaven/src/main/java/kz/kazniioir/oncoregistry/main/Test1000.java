@@ -135,7 +135,5 @@ public class Test1000 {
             ex.printStackTrace();
             //javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
         }
-        System.out.println("000000000000000");
-
     }
 }
